@@ -1,0 +1,2 @@
+# EduBytes
+Educational video platform

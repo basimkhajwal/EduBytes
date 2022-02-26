@@ -1,3 +1,19 @@
 .App {
   text-align: center;
 }
+
+.landing-comp {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.search-box {
+  margin: auto;
+  display: block;
+  width: 40%;
+  padding: 15px;
+}
+
+.test-box {
+  border: medium dashed green;
+}

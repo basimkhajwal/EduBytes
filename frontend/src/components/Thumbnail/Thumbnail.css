@@ -1,6 +1,7 @@
 .video {
   display: inline-block;
   margin: 7px;
+  width: 290px;
 }
 
 .thumbnail {
@@ -33,3 +34,7 @@
   background: red;
   display: inline-block;
 } */
+
+.test-box {
+  border: medium dashed green;
+}

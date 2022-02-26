@@ -12,7 +12,9 @@ const App = () => {
       </div>
       <section className="container landing-comp">
         <div className="is-size-1">
-          <h1 className="has-text-weight-bold">What do you want to learn?</h1>
+          <h1 className="has-text-weight-bold">
+            What do you want to learn today?
+          </h1>
         </div>
         <div className="field is-grouped search-box">
           <p className="control is-expanded">
@@ -27,6 +29,7 @@ const App = () => {
           </p>
         </div>
       </section>
+
       <section className="container">
         <span
           className="icon"
@@ -38,6 +41,11 @@ const App = () => {
           <FontAwesomeIcon icon={faVideo} />
         </span>
         <span className="icon-text has-text-weight-bold">Popular videos</span>
+        <div>
+          <div id="rectangle" className="thumbnail"></div>
+          <div id="rectangle" className="thumbnail"></div>
+          <div id="rectangle" className="thumbnail"></div>
+        </div>
       </section>
     </>
   );

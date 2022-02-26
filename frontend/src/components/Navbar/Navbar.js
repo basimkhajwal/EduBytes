@@ -9,6 +9,7 @@ const Navbar = () => {
       className="navbar has-shadow"
       role="navigation"
       aria-label="main navigation"
+      style={{ paddingRight: "10px", paddingLeft: "10px" }}
     >
       <div className="navbar-brand">
         <a className="navbar-item">

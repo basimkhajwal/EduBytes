@@ -46,7 +46,7 @@ const App = () => {
           <Thumbnail
             videoInfo={{
               videoThumbnailUrl:
-                "https://i.ytimg.com/vi/N6aGaDbZRU8/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAMN66WP6o4mbuTuK3X4ly5uK8-hg",
+                "https://i.ytimg.com/vi/MX0AIbxkBus/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAk9hopOcFyIU0sI290Y8HN5JsRCA",
               videoTitle: "Stochastic gradient Hamiltonian Monte Carlo",
               videoLength: "10:05",
               channelName: "Luke Ong",
@@ -56,8 +56,32 @@ const App = () => {
               tags: ["statistics", "sampling", "langevin dynamics"],
             }}
           />
-          {/* <Thumbnail />
-          <Thumbnail /> */}
+          <Thumbnail
+            videoInfo={{
+              videoThumbnailUrl:
+                "https://i.ytimg.com/vi/cxNq-hQwvn0/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCnsTPkC24wp9fhT4pPAHqPcnI3Zg",
+              videoTitle: "Galois Theory for Noobies",
+              videoLength: "43:54",
+              channelName: "Insights into Mathematics",
+              numViews: 166000,
+              numFoundHelpful: 13,
+              numComments: 20,
+              tags: ["galois theory", "number theory"],
+            }}
+          />
+          <Thumbnail
+            videoInfo={{
+              videoThumbnailUrl:
+                "https://i.ytimg.com/vi/iDulhoQ2pro/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDW3eSTm2teygE9mlImyWqJ32nUjA",
+              videoTitle: "Attention is All You Need",
+              videoLength: "27:07",
+              channelName: "Yannic Kilcher",
+              numViews: 333000,
+              numFoundHelpful: 710,
+              numComments: 43,
+              tags: ["transformers", "machine learning", "deep learning"],
+            }}
+          />
         </div>
       </section>
     </>

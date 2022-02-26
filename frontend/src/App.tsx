@@ -43,9 +43,21 @@ const App = () => {
         </span>
         <span className="icon-text has-text-weight-bold">Popular videos</span>
         <div>
-          <Thumbnail />
-          <Thumbnail />
-          <Thumbnail />
+          <Thumbnail
+            videoInfo={{
+              videoThumbnailUrl:
+                "https://i.ytimg.com/vi/N6aGaDbZRU8/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAMN66WP6o4mbuTuK3X4ly5uK8-hg",
+              videoTitle: "Stochastic gradient Hamiltonian Monte Carlo",
+              videoLength: "10:05",
+              channelName: "Luke Ong",
+              numViews: 6000,
+              numFoundHelpful: 210,
+              numComments: 3,
+              tags: ["statistics", "sampling", "langevin dynamics"],
+            }}
+          />
+          {/* <Thumbnail />
+          <Thumbnail /> */}
         </div>
       </section>
     </>

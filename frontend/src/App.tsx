@@ -31,7 +31,7 @@ const App = () => {
         </div>
       </section>
 
-      <section className="container pt-5">
+      <section className="container pt-6">
         <span
           className="icon"
           style={{

@@ -9,12 +9,12 @@ const Thumbnail = () => {
         <div className="has-text-weight-bold">
           Stochastic gradient Hamiltonian Monte Carlo
         </div>
-        <div>Khan Academy</div>
-        <div className="tags container pt-2">
+        <div className="is-size-7">Khan Academy</div>
+        <div className="is-size-7">1M views • 2 votes • 3 comments</div>
+        <div className="tags pt-2">
           <span className="tag is-rounded is-light">statistics</span>
           <span className="tag is-rounded is-light">sampling</span>
           <span className="tag is-rounded is-light">langevin dynamics</span>
-          <span className="tag is-rounded is-light">mars bars</span>
         </div>
       </div>
     </>

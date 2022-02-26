@@ -17,15 +17,3 @@
 .test-box {
   border: medium dashed green;
 }
-
-.thumbnail {
-  content: url(https://i.ytimg.com/vi/N6aGaDbZRU8/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAMN66WP6o4mbuTuK3X4ly5uK8-hg);
-  margin: 7px;
-}
-
-#rectangle {
-  width: 290px;
-  height: 150px;
-  background: red;
-  display: inline-block;
-}

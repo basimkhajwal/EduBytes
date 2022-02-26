@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar/Navbar";
+import Thumbnail from "./components/Thumbnail/Thumbnail";
 import "./App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,9 +43,9 @@ const App = () => {
         </span>
         <span className="icon-text has-text-weight-bold">Popular videos</span>
         <div>
-          <div id="rectangle" className="thumbnail"></div>
-          <div id="rectangle" className="thumbnail"></div>
-          <div id="rectangle" className="thumbnail"></div>
+          <Thumbnail />
+          <Thumbnail />
+          <Thumbnail />
         </div>
       </section>
     </>

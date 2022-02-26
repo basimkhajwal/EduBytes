@@ -31,7 +31,7 @@ const MainView = () => {
           </p>
         </div>
       </section>
-      <section className="container pt-6">
+      <section className="container pt-6 pb-6">
         <span
           className="icon"
           style={{
@@ -41,12 +41,12 @@ const MainView = () => {
         >
           <FontAwesomeIcon icon={faVideo} />
         </span>
-        <span className="icon-text pb-3">
+        <span className="icon-text pb-5">
           <h1 className="is-size-6 has-text-weight-bold">
             Videos popular with students this month
           </h1>
         </span>
-        <div>
+        <div className="columns is-centred">
           <Thumbnail
             videoInfo={{
               videoThumbnailUrl:

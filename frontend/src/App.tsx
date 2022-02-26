@@ -43,7 +43,7 @@ const App = () => {
         </span>
         <span className="icon-text pb-3">
           <h1 className="is-size-6 has-text-weight-bold">
-            Videos popular to students this month
+            Videos popular with students this month
           </h1>
         </span>
         <div>

@@ -16,7 +16,7 @@ const App = () => {
             <input
               className="input"
               type="text"
-              placeholder="Find a repository"
+              placeholder="Find the right video for you"
             />
           </p>
           <p className="control">

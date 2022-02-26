@@ -1,0 +1,20 @@
+.video {
+  display: inline-block;
+  width: 330px;
+}
+
+.thumbnail {
+  position: relative;
+  width: 640px;
+  height: 480px;
+  display: inline-block;
+}
+
+.thumbnail-length {
+  padding: 10px;
+  padding-top: 45%; /* hardcoded to get thumbnail length to bottom, dodgy af*/
+}
+
+.test-box {
+  border: medium dashed green;
+}

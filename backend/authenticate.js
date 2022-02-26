@@ -1,5 +1,6 @@
 var search = require("./search");
 var fs = require('fs');
+var path = require('path');
 var readline = require('readline');
 var { google } = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
@@ -12,40 +13,37 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
 var TOKEN_PATH = TOKEN_DIR + 'youtube-nodejs-quickstart.json';
 
 
-function getAuth() {
-    fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-        if (err) {
-            console.log('Error loading client secret file: ' + err);
+function authorize() {
+    return new Promise((resolve, reject) => {
+        _readClientSecret().then((credentials) => {
+            return _authorize(credentials);
+        }).then((auth) => {
+            resolve(auth);
             return;
-        }
-        JSON.parse(content);
+        }).catch((err) => {
+            reject(err);
+            return;
+        });
     });
 }
 
 
-// Load client secrets from a local file.
-fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-    if (err) {
-        console.log('Error loading client secret file: ' + err);
-        return;
-    }
-    // authorize(JSON.parse(content), (auth => search.getChannel(auth, 'GoogleDevelopers')));
-    // Authorize a client with the loaded credentials, then call the YouTube API.
-    (async () => {
-        try {
-            const auth = await authorize(JSON.parse(content));
-            const channel = await search.getChannel(auth, 'GoogleDevelopers');
-            const playlist = await search.getVideos(auth, channel.contentDetails.relatedPlaylists.uploads);
-            console.log(playlist);
-
-        } catch (err) {
-            // console.log(err);
-            console.log("here");
-        }
-    })();
-    // var playlistId = channel.contentDetails.relatedPlaylists.uploads;
-    // var playlist = authorize(JSON.parse(content), (auth => getVideos(auth, playlistId)));
-});
+function _readClientSecret() {
+    return new Promise((resolve, reject) => {
+        const FILEPATH = path.join(__dirname, 'client_secret.json');
+        console.log(FILEPATH);
+        fs.readFile(FILEPATH, function processClientSecrets(err, content) {
+            if (err) {
+                console.log('Error loading client secret file: ' + err);
+                reject(err);
+                return;
+            } else {
+                resolve(JSON.parse(content));
+                return;
+            }
+        });
+    });
+}
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -54,7 +52,7 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials) {
+function _authorize(credentials) {
     var clientSecret = credentials.installed.client_secret;
     var clientId = credentials.installed.client_id;
     var redirectUrl = credentials.installed.redirect_uris[0];
@@ -124,53 +122,6 @@ function storeToken(token) {
     });
 }
 
-// function getChannel(auth, username) {
-//     var service = google.youtube('v3');
-//     service.channels.list({
-//         auth: auth,
-//         part: 'snippet,contentDetails,statistics',
-//         forUsername: username
-//     }, function (err, response) {
-//         if (err) {
-//             console.log('The API returned an error: ' + err);
-//             return;
-//         }
-//         var channels = response.data.items;
-//         console.log(channels);
-//         if (channels.length == 0) {
-//             console.log('No channel found.');
-//             return;
-//         } else {
-//             console.log('%s channels found', channels.length);
-//             console.log('The first channel\'s ID is %s. Its title is \'%s\', and ' +
-//                 'it has %s views.',
-//                 channels[0].id,
-//                 channels[0].snippet.title,
-//                 channels[0].statistics.viewCount);
-//             return channels[0];
-//         }
-//     });
-// }
-
-// function getVideos(auth, playlistId) {
-//     var service = google.youtube('v3');
-//     service.playlistItems.list({
-//         auth: auth,
-//         part: 'snippet',
-//         maxResults: 50,
-//         playlistId: playlistId
-//     }, function (err, response) {
-//         if (err) {
-//             console.log('The API returned an error: ' + err);
-//             return;
-//         }
-//         var videos = response.data.items;
-//         console.log(videos);
-//         if (videos.length == 0) {
-//             console.log('No video found.');
-//         } else {
-//             console.log('%s videos found', videos.length);
-//             return videos;
-//         }
-//     });
-// }
+module.exports = {
+    authorize: authorize,
+}

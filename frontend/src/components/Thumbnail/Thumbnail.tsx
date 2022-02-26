@@ -9,7 +9,7 @@ interface VideoInfo {
   numViews: string;
   numFoundHelpful: string;
   numComments: string;
-  tags: Array<any>;
+  tags: Array<string>;
 }
 
 interface Props {

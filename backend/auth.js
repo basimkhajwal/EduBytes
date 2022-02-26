@@ -1,3 +1,5 @@
+var search = require("./search");
+console.log(search);
 var fs = require('fs');
 var readline = require('readline');
 var { google } = require('googleapis');
@@ -10,15 +12,39 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'youtube-nodejs-quickstart.json';
 
+
+function getAuth() {
+    fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+        if (err) {
+            console.log('Error loading client secret file: ' + err);
+            return;
+        }
+        JSON.parse(content);
+    });
+}
+
+function main() {
+    authorize(getAuth(),)
+}
+
 // Load client secrets from a local file.
 fs.readFile('client_secret.json', function processClientSecrets(err, content) {
     if (err) {
         console.log('Error loading client secret file: ' + err);
         return;
     }
+    authorize(JSON.parse(content), (auth => search.getChannel(auth, 'GoogleDevelopers')));
     // Authorize a client with the loaded credentials, then call the YouTube API.
-    // authorize(JSON.parse(content), getChannel);
-    authorize(JSON.parse(content), getVideo);
+    (async () => {
+        try {
+            var channel = await authorize(JSON.parse(content), (auth => search.getChannel(auth, 'GoogleDevelopers')));
+            console.log(channel);
+        } catch (err) {
+            console.log(err);
+        }
+    })();
+    // var playlistId = channel.contentDetails.relatedPlaylists.uploads;
+    // var playlist = authorize(JSON.parse(content), (auth => getVideos(auth, playlistId)));
 });
 
 /**
@@ -96,63 +122,53 @@ function storeToken(token) {
     });
 }
 
-/**
- * Lists the names and IDs of up to 10 files.
- *
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- */
-function getChannel(auth) {
-    var service = google.youtube('v3');
-    service.channels.list({
-        auth: auth,
-        part: 'snippet,contentDetails,statistics',
-        forUsername: 'GoogleDevelopers'
-    }, function (err, response) {
-        if (err) {
-            console.log('The API returned an error: ' + err);
-            return;
-        }
-        var channels = response.data.items;
-        console.log(channels);
-        if (channels.length == 0) {
-            console.log('No channel found.');
-        } else {
-            console.log('This channel\'s ID is %s. Its title is \'%s\', and ' +
-                'it has %s views.',
-                channels[0].id,
-                channels[0].snippet.title,
-                channels[0].statistics.viewCount);
-        }
-    });
-}
+// function getChannel(auth, username) {
+//     var service = google.youtube('v3');
+//     service.channels.list({
+//         auth: auth,
+//         part: 'snippet,contentDetails,statistics',
+//         forUsername: username
+//     }, function (err, response) {
+//         if (err) {
+//             console.log('The API returned an error: ' + err);
+//             return;
+//         }
+//         var channels = response.data.items;
+//         console.log(channels);
+//         if (channels.length == 0) {
+//             console.log('No channel found.');
+//             return;
+//         } else {
+//             console.log('%s channels found', channels.length);
+//             console.log('The first channel\'s ID is %s. Its title is \'%s\', and ' +
+//                 'it has %s views.',
+//                 channels[0].id,
+//                 channels[0].snippet.title,
+//                 channels[0].statistics.viewCount);
+//             return channels[0];
+//         }
+//     });
+// }
 
-function getVideo(auth) {
-    var service = google.youtube('v3');
-    service.videos.list({
-        auth: auth,
-        part: 'snippet,statistics',
-        maxResults: 5,
-        id: 'QZ4BXGgmATU'
-    }, function (err, response) {
-        if (err) {
-            console.log('The API returned an error: ' + err);
-            return;
-        }
-        var videos = response.data.items;
-
-        if (videos.length == 0) {
-            console.log('No video found.');
-        } else {
-            console.log('This video\'s \'%s\', and ' +
-                'it has %s views. Its tags include %s',
-                videos[0].snippet.title,
-                videos[0].statistics.viewCount,
-                videos[0].snippet.tags.slice(0, 3));
-            fs.writeFile("videos.json", JSON.stringify(videos), function (err) {
-                if (err) throw err;
-                console.log('complete');
-            }
-            );
-        }
-    });
-}
+// function getVideos(auth, playlistId) {
+//     var service = google.youtube('v3');
+//     service.playlistItems.list({
+//         auth: auth,
+//         part: 'snippet',
+//         maxResults: 50,
+//         playlistId: playlistId
+//     }, function (err, response) {
+//         if (err) {
+//             console.log('The API returned an error: ' + err);
+//             return;
+//         }
+//         var videos = response.data.items;
+//         console.log(videos);
+//         if (videos.length == 0) {
+//             console.log('No video found.');
+//         } else {
+//             console.log('%s videos found', videos.length);
+//             return videos;
+//         }
+//     });
+// }

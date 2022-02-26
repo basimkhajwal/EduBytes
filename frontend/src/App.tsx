@@ -31,7 +31,7 @@ const App = () => {
         </div>
       </section>
 
-      <section className="container">
+      <section className="container pt-5">
         <span
           className="icon"
           style={{
@@ -41,7 +41,11 @@ const App = () => {
         >
           <FontAwesomeIcon icon={faVideo} />
         </span>
-        <span className="icon-text has-text-weight-bold">Popular videos</span>
+        <span className="icon-text pb-3">
+          <h1 className="is-size-6 has-text-weight-bold">
+            Videos popular to students this month
+          </h1>
+        </span>
         <div>
           <Thumbnail
             videoInfo={{
@@ -50,9 +54,9 @@ const App = () => {
               videoTitle: "Stochastic gradient Hamiltonian Monte Carlo",
               videoLength: "10:05",
               channelName: "Luke Ong",
-              numViews: 6000,
-              numFoundHelpful: 210,
-              numComments: 3,
+              numViews: "6k",
+              numFoundHelpful: "210",
+              numComments: "3",
               tags: ["statistics", "sampling", "langevin dynamics"],
             }}
           />
@@ -63,9 +67,9 @@ const App = () => {
               videoTitle: "Galois Theory for Noobies",
               videoLength: "43:54",
               channelName: "Insights into Mathematics",
-              numViews: 166000,
-              numFoundHelpful: 13,
-              numComments: 20,
+              numViews: "166k",
+              numFoundHelpful: "130",
+              numComments: "20",
               tags: ["galois theory", "number theory"],
             }}
           />
@@ -76,9 +80,9 @@ const App = () => {
               videoTitle: "Attention is All You Need",
               videoLength: "27:07",
               channelName: "Yannic Kilcher",
-              numViews: 333000,
-              numFoundHelpful: 710,
-              numComments: 43,
+              numViews: "333k",
+              numFoundHelpful: "710",
+              numComments: "43",
               tags: ["transformers", "machine learning", "deep learning"],
             }}
           />

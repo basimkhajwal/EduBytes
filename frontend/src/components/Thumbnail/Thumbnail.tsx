@@ -6,9 +6,9 @@ interface VideoInfo {
   videoTitle: string;
   videoLength: string;
   channelName: string;
-  numViews: number;
-  numFoundHelpful: number;
-  numComments: number;
+  numViews: string;
+  numFoundHelpful: string;
+  numComments: string;
   tags: Array<any>;
 }
 

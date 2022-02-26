@@ -1,5 +1,4 @@
 var search = require("./search");
-console.log(search);
 var fs = require('fs');
 var readline = require('readline');
 var { google } = require('googleapis');
@@ -23,9 +22,6 @@ function getAuth() {
     });
 }
 
-function main() {
-    authorize(getAuth(),)
-}
 
 // Load client secrets from a local file.
 fs.readFile('client_secret.json', function processClientSecrets(err, content) {
@@ -33,14 +29,18 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
         console.log('Error loading client secret file: ' + err);
         return;
     }
-    authorize(JSON.parse(content), (auth => search.getChannel(auth, 'GoogleDevelopers')));
+    // authorize(JSON.parse(content), (auth => search.getChannel(auth, 'GoogleDevelopers')));
     // Authorize a client with the loaded credentials, then call the YouTube API.
     (async () => {
         try {
-            var channel = await authorize(JSON.parse(content), (auth => search.getChannel(auth, 'GoogleDevelopers')));
-            console.log(channel);
+            const auth = await authorize(JSON.parse(content));
+            const channel = await search.getChannel(auth, 'GoogleDevelopers');
+            const playlist = await search.getVideos(auth, channel.contentDetails.relatedPlaylists.uploads);
+            console.log(playlist);
+
         } catch (err) {
-            console.log(err);
+            // console.log(err);
+            console.log("here");
         }
     })();
     // var playlistId = channel.contentDetails.relatedPlaylists.uploads;
@@ -54,21 +54,23 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback) {
+function authorize(credentials) {
     var clientSecret = credentials.installed.client_secret;
     var clientId = credentials.installed.client_id;
     var redirectUrl = credentials.installed.redirect_uris[0];
     var oauth2Client = new OAuth2(clientId, clientSecret, redirectUrl);
 
     // Check if we have previously stored a token.
-    fs.readFile(TOKEN_PATH, function (err, token) {
-        if (err) {
-            getNewToken(oauth2Client, callback);
-        } else {
-            oauth2Client.credentials = JSON.parse(token);
-            callback(oauth2Client);
-        }
-    });
+    return new Promise((resolve, reject) => {
+        fs.readFile(TOKEN_PATH, function (err, token) {
+            if (err) {
+                getNewToken(oauth2Client, resolve);
+            } else {
+                oauth2Client.credentials = JSON.parse(token);
+                resolve(oauth2Client);
+            }
+        });
+    })
 }
 
 /**

@@ -11,6 +11,7 @@ function getChannel(auth, username) {
             if (err) {
                 console.log('The API returned an error: ' + err);
                 reject(err);
+                return;
             }
             var channels = response.data.items;
             console.log(channels);
@@ -28,35 +29,37 @@ function getChannel(auth, username) {
             }
         });
     });
-    promise.then(function (result) {
-        return result;
-    }).catch(function (err) {
-        console.log(err);
-    });
-
+    return promise;
 }
 
 function getVideos(auth, playlistId) {
     var service = google.youtube('v3');
-    service.playlistItems.list({
-        auth: auth,
-        part: 'snippet',
-        maxResults: 50,
-        playlistId: playlistId
-    }, function (err, response) {
-        if (err) {
-            console.log('The API returned an error: ' + err);
-            return;
-        }
-        var videos = response.data.items;
-        console.log(videos);
-        if (videos.length == 0) {
-            console.log('No video found.');
-        } else {
-            console.log('%s videos found', videos.length);
-            return videos;
-        }
+    var promise = new Promise((resolve, reject) => {
+        service.playlistItems.list({
+            auth: auth,
+            part: 'snippet',
+            maxResults: 50,
+            playlistId: playlistId
+        }, function (err, response) {
+            if (err) {
+                console.log('The API returned an error: ' + err);
+                reject(err);
+                return;
+            }
+            var videos = response.data.items;
+            console.log(videos);
+            if (videos.length == 0) {
+                console.log('No video found.');
+                reject(err);
+                return;
+            } else {
+                console.log('%s videos found', videos.length);
+                resolve(videos);
+                return;
+            }
+        });
     });
+    return promise;
 }
 
 module.exports = {

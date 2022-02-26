@@ -14,7 +14,7 @@ const Navbar = () => {
       <div className="navbar-brand">
         <a className="navbar-item">
           <div>
-            <strong>Edubytes</strong>
+            <strong>EduBytes</strong>
           </div>
         </a>
 

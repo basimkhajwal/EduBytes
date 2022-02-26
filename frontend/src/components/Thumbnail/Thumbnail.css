@@ -5,35 +5,16 @@
 }
 
 .thumbnail {
-  content: url(https://i.ytimg.com/vi/N6aGaDbZRU8/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAMN66WP6o4mbuTuK3X4ly5uK8-hg);
   position: relative;
-  width: 290px;
-  height: 150px;
+  width: 640px;
+  height: 480px;
   display: inline-block;
 }
 
-/* .thumbnail-length {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  height: 30px;
-  width: 100px;
-  color: white;
-  background: black;
-  filter: opacity(0.6);
-  text-align: center;
-  font-size: 26px;
-  font-family: sans-serif;
-  right: 0;
-  visibility: hidden;
-} */
-
-/* #rectangle {
-  width: 290px;
-  height: 150px;
-  background: red;
-  display: inline-block;
-} */
+.thumbnail-length {
+  padding: 10px;
+  padding-top: 127px; /* hardcoded to get thumbnail length to bottom, dodgy af*/
+}
 
 .test-box {
   border: medium dashed green;

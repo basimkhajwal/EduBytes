@@ -2,7 +2,7 @@ import React from "react";
 
 import "./VideoView.css";
 
-interface Video {
+export interface Video {
   id: string;
   snippet: {
     title: string;
@@ -10,7 +10,7 @@ interface Video {
   };
 }
 
-interface Props {
+export interface Props {
   video: Video;
 }
 

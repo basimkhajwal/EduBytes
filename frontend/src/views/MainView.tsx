@@ -5,8 +5,15 @@ import "./MainView.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
-const MainView = () => {
+interface Props {
+  onSearch: (query: String) => void;
+}
+
+const MainView = (props: Props) => {
+  const [searchInput, setSearchInput] = React.useState("");
+
   return (
     <>
       <div>
@@ -25,10 +32,17 @@ const MainView = () => {
                 className="input"
                 type="text"
                 placeholder="Find the right video for you"
+                value={searchInput}
+                onChange={(event) => setSearchInput(event.target.value)}
               />
             </p>
             <p className="control">
-              <a className="button is-info">Search</a>
+              <button
+                className="button is-info"
+                onClick={() => props.onSearch(searchInput)}
+              >
+                Search
+              </button>
             </p>
           </div>
         </div>

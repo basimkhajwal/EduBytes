@@ -106,7 +106,7 @@ const MainView = (props: Props) => {
           </h1>
         </span>
         <div className="columns is-multiline">
-          {videos.slice(0, 100).map((v, i) => (
+          {(videos as Video[]).slice(0, 100).map((v, i) => (
             <Thumbnail
               video={v}
               key={i.toString(10)}

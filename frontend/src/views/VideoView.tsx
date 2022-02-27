@@ -26,7 +26,7 @@ export interface Props {
 }
 
 function findVideo(videoId: string | undefined): Video | undefined {
-  for (const video of videos) {
+  for (const video of videos as Video[]) {
     if (video.id === videoId) {
       return video;
     }

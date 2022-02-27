@@ -9,42 +9,6 @@ import React from "react";
 
 import videos from "../data/videos.json";
 
-// const videoInfos = [
-//   {
-//     videoThumbnailUrl:
-//       "https://i.ytimg.com/vi/ZPBkHuwIefQ/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCQhcppofhzoeEM4xnLB6qdH-Rr3w",
-//     videoTitle: "Hamiltonian Monte Carlo and other MCMC",
-//     videoLength: "10:05",
-//     channelName: "Luke Ong",
-//     numViews: "6k",
-//     numFoundHelpful: "210",
-//     numComments: "3",
-//     tags: ["statistics", "sampling", "langevin dynamics"],
-//   },
-//   {
-//     videoThumbnailUrl:
-//       "https://i.ytimg.com/vi/cxNq-hQwvn0/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCnsTPkC24wp9fhT4pPAHqPcnI3Zg",
-//     videoTitle: "Galois Theory for Noobies",
-//     videoLength: "43:54",
-//     channelName: "Insights into Mathematics",
-//     numViews: "166k",
-//     numFoundHelpful: "130",
-//     numComments: "20",
-//     tags: ["galois theory", "number theory"],
-//   },
-//   {
-//     videoThumbnailUrl:
-//       "https://i.ytimg.com/vi/iDulhoQ2pro/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDW3eSTm2teygE9mlImyWqJ32nUjA",
-//     videoTitle: "Attention is All You Need",
-//     videoLength: "27:07",
-//     channelName: "Yannic Kilcher",
-//     numViews: "333k",
-//     numFoundHelpful: "710",
-//     numComments: "43",
-//     tags: ["transformers", "machine learning", "deep learning"],
-//   },
-// ];
-
 interface Props {
   onSearch: (query: String) => void;
 }

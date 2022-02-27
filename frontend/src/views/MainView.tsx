@@ -20,6 +20,7 @@ const MainView = (props: Props) => {
 
   const headerTitle = "What do you want to learn 🧠 today?";
   const searchPlaceholderMessage = "How about Quantum Theory?";
+
   return (
     <>
       <div>
@@ -38,10 +39,14 @@ const MainView = (props: Props) => {
                 placeholder={searchPlaceholderMessage}
                 value={searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}
+                onKeyPress={(e) => {
+                  e.key === "Enter" && props.onSearch(searchInput);
+                }}
               />
             </p>
             <p className="control">
               <button
+                type="submit"
                 className="button is-info"
                 onClick={() => props.onSearch(searchInput)}
               >

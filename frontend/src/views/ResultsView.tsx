@@ -33,6 +33,9 @@ const ResultsView = (props: Props) => {
                 placeholder={searchPlaceholderMessage}
                 value={searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}
+                onKeyPress={(e) => {
+                  e.key === "Enter" && props.onSearch(searchInput);
+                }}
               />
             </p>
             <p className="control">

@@ -7,6 +7,11 @@ interface Props {
   video: Video;
 }
 
+const formatCounts = (numString: string) => {
+  const formatter = Intl.NumberFormat("en", { notation: "compact" });
+  return formatter.format(Number(numString));
+};
+
 const Thumbnail = (props: Props) => {
   const {
     id,
@@ -22,6 +27,7 @@ const Thumbnail = (props: Props) => {
           .map((v) => v?.url)
           .filter((v): v is string => v !== undefined);
   const url = urls.length === 0 ? "default" : urls[0];
+
   return (
     <div className="column is-one-quarter is-full-mobile video">
       <div>
@@ -39,7 +45,8 @@ const Thumbnail = (props: Props) => {
       <div className="has-text-weight-bold">{title}</div>
       <div className="is-size-7">{channelTitle}</div>
       <div className="is-size-7">
-        {viewCount} views • {likeCount} said helpful • {commentCount} comments
+        {formatCounts(viewCount)} views • {formatCounts(likeCount)} said helpful
+        • {formatCounts(commentCount)} comments
       </div>
       <div className="tags pt-2">
         {tagsValid.map((tag: string) => {

@@ -16,6 +16,9 @@ interface Props {
 const MainView = (props: Props) => {
   const [searchInput, setSearchInput] = React.useState("");
   console.log(videos.slice(0, 6));
+
+  const headerTitle = "What do you want to learn 🧠 today?";
+  const searchPlaceholderMessage = "How about Quantum Theory?";
   return (
     <>
       <div>
@@ -24,16 +27,14 @@ const MainView = (props: Props) => {
       <section className="hero is-medium is-warning landing-comp">
         <div className="hero-body">
           <div className="is-size-1">
-            <h1 className="has-text-weight-bold">
-              What do you want to learn today?
-            </h1>
+            <h1 className="has-text-weight-bold">{headerTitle}</h1>
           </div>
           <div className="field is-grouped search-box">
             <p className="control is-expanded">
               <input
                 className="input"
                 type="text"
-                placeholder="Find the right video for you"
+                placeholder={searchPlaceholderMessage}
                 value={searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}
               />

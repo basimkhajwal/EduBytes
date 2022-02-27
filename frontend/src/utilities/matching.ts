@@ -42,10 +42,19 @@ function watchedVideos(videos: Video[]): Video[] {
     .map((vid) => vmap[vid]);
 }
 
-export function watchedTags(videos: Video[]): string[] {
-  return watchedVideos(videos)
+function getTags(videos: Video[]): string[] {
+  return videos
     .map((v) => v.snippet.tags ?? [])
     .flat()
     .map((v) => Array.from(new Set(getKeywords(v))))
     .flat();
+}
+
+export function watchedTags(videos: Video[]): string[] {
+  return getTags(watchedVideos(videos));
+}
+
+export function similarVideos(videos: Video[], target: Video): Video[] {
+  const keywords = getTags([target]);
+  return sortVideos(videos, keywords);
 }

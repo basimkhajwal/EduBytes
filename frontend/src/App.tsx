@@ -64,7 +64,13 @@ const App = () => {
       />
       <Route
         path="/video/:id"
-        element={<VideoView onSearch={onSearch} backHome={backHome} />}
+        element={
+          <VideoView
+            onSearch={onSearch}
+            backHome={backHome}
+            onVideoSelect={onVideoSelect}
+          />
+        }
       />
       <Route path="*" element={<Navigate to="/home" />} />
     </Routes>

@@ -109,7 +109,7 @@ const MainView = (props: Props) => {
             Videos popular with students this month
           </h1>
         </span>
-        <div className="columns is-multiline">
+        <div className="columns is-full-mobile is-multiline">
           {myVideos.slice(0, 100).map((v, i) => (
             <Thumbnail
               video={v}

@@ -5,8 +5,8 @@
 
 .thumbnail {
   position: relative;
-  width: 640px;
-  height: 480px;
+  width: 480px;
+  height: 150px;
   display: inline-block;
 }
 

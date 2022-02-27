@@ -20,11 +20,14 @@ import { useParams } from "react-router-dom";
 
 import videos from "../data/videos.json";
 import links from "../data/links.json";
+import { similarVideos } from "../utilities/matching";
+import Thumbnail from "../components/Thumbnail/Thumbnail";
 const linkKeys = links.map((tup) => tup.tag);
 
 export interface Props {
   onSearch: (query: string) => void;
   backHome: () => void;
+  onVideoSelect: (video: Video) => void;
 }
 
 function findVideo(videoId: string | undefined): Video | undefined {
@@ -76,12 +79,11 @@ const View = (props: Props) => {
   const formattedDescription = description
     .split("\n")
     .map((str) => <p>{str}</p>);
-  console.log(tags)
-  console.log(linkKeys.slice(0, 5));
   const haveLinks = tags?.filter((key) => {
-    console.log(key)
     return linkKeys.includes(key);
   });
+  const similar = similarVideos([...(videos as Video[])], video);
+
   return (
     <>
       <Navbar backHome={props.backHome} />
@@ -194,10 +196,49 @@ const View = (props: Props) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {haveLinks && haveLinks?.length > 0 ? haveLinks.map((tag: string) => {
-                const url = findUrl(tag);
-                return (<Typography component="div" className="is-size-6">More on {tag}: <a href={url}>{url}</a></Typography>);
-              }) : <Typography component="div" className="is-size-6">We were unable to find any relevant links.</Typography>}
+              {haveLinks && haveLinks?.length > 0 ? (
+                haveLinks.map((tag: string) => {
+                  const url = findUrl(tag);
+                  return (
+                    <Typography component="div" className="is-size-6">
+                      More on {tag}: <a href={url}>{url}</a>
+                    </Typography>
+                  );
+                })
+              ) : (
+                <Typography component="div" className="is-size-6">
+                  We were unable to find any relevant links.
+                </Typography>
+              )}
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography
+                component="h4"
+                className="title is-4 block has-text-centered"
+              >
+                Similar Videos
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {
+                <div className="columns is-multiline">
+                  {similar.slice(3, 13).map((v, i) => (
+                    <Thumbnail
+                      video={v}
+                      key={i.toString(10)}
+                      onSearch={props.onSearch}
+                      onVideoSelect={props.onVideoSelect}
+                      backHome={props.backHome}
+                    />
+                  ))}
+                </div>
+              }
             </AccordionDetails>
           </Accordion>
         </div>

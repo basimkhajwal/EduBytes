@@ -46,7 +46,12 @@ const View = (props: Props) => {
         <Card
           component="div"
           className="block playerContainer"
-          style={{ display: "flex", justifyContent: "center" }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            border: "none",
+            boxShadow: "none",
+          }}
         >
           <CardMedia
             component="iframe"

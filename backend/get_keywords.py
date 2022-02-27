@@ -3,12 +3,10 @@ import json
 import subprocess
 from string import punctuation
 
-json_file_path = "frontend/src/data/videos.json"
-
+json_file_path = "videos.json"
 
 with open(json_file_path, 'r', encoding='utf-8') as j:
     contents = json.load(j)
-
 
 def extract_keywords(nlp, sequence, pos_tag):
     """
@@ -35,15 +33,14 @@ def extract_keywords(nlp, sequence, pos_tag):
 
     return result
 
-
 nlp = spacy.load("en_core_web_lg")
 
-res = {}
 for c in contents:
     keywords = extract_keywords(nlp, c["snippet"]["title"], ['PROPN', 'NOUN'])
-    if "tags" in c:
-        keywords += extract_keywords(nlp, c["tags"], ['PROPN'])
-    res[c['id']] = keywords
+    if "tags" in c["snippet"]:
+        for tag in c["snippet"]["tags"]:
+            keywords += extract_keywords(nlp, tag, ['PROPN'])
+    c["snippet"]["tags"] = list(set(w for w in keywords if len(w)>1))
 
-with open("./frontend/src/data/tags.json", "w+") as write_file:
-    json.dump(res, write_file)
+with open("../frontend/src/data/videos.json", "w") as write_file:
+    json.dump(contents, write_file)

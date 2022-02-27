@@ -1,51 +1,44 @@
 import "bulma/css/bulma.min.css";
 import "./Thumbnail.css";
 
-interface VideoInfo {
-  videoThumbnailUrl: string;
-  videoTitle: string;
-  videoLength: string;
-  channelName: string;
-  numViews: string;
-  numFoundHelpful: string;
-  numComments: string;
-  tags: Array<string>;
-}
+import Video from "../../models/Video";
 
 interface Props {
-  videoInfo: VideoInfo;
+  video: Video;
 }
 
 const Thumbnail = (props: Props) => {
   const {
-    videoThumbnailUrl,
-    videoTitle,
-    videoLength,
-    channelName,
-    numViews,
-    numFoundHelpful,
-    numComments,
-    tags,
-  } = props.videoInfo;
+    id,
+    snippet: { title, description, channelTitle, tags, thumbnails },
+    contentDetails: { duration },
+    statistics: { viewCount, likeCount, commentCount },
+  } = props.video;
+  const urls =
+    thumbnails === undefined
+      ? []
+      : Object.values(thumbnails)
+          .map((v) => v?.url)
+          .filter((v): v is string => v !== undefined);
+  const url = urls.length === 0 ? "default" : urls[0];
   return (
     <div className="column is-one-quarter is-full-mobile video">
       <div>
         <div className="card-image">
           <figure>
-            <img src={videoThumbnailUrl}></img>
+            <img src={url}></img>
           </figure>
         </div>
         {/* <div className="is-overlay">
           <div className="thumbnail-length is-pulled-right">
-            <span className="tag is-dark">{videoLength}</span>
+            <span className="tag is-dark">{videoDuration}</span>
           </div>
         </div> */}
       </div>
-      <div className="has-text-weight-bold">{videoTitle}</div>
-      <div className="is-size-7">{channelName}</div>
+      <div className="has-text-weight-bold">{title}</div>
+      <div className="is-size-7">{channelTitle}</div>
       <div className="is-size-7">
-        {numViews} views • {numFoundHelpful} said helpful • {numComments}{" "}
-        comments
+        {viewCount} views • {likeCount} said helpful • {commentCount} comments
       </div>
       <div className="tags pt-2">
         {tags.map((tag: string) => {

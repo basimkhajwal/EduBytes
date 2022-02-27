@@ -1,7 +1,9 @@
 import React from "react";
 import MainView from "./views/MainView";
 import ResultsView from "./views/ResultsView";
-import VideoView, { Video } from "./views/VideoView";
+import VideoView from "./views/VideoView";
+
+import Video from "./models/Video";
 
 import "./App.css";
 

@@ -2,13 +2,7 @@ import React from "react";
 
 import "./VideoView.css";
 
-export interface Video {
-  id: string;
-  snippet: {
-    title: string;
-    description: string;
-  };
-}
+import Video from "../models/Video";
 
 export interface Props {
   video: Video;

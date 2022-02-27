@@ -12,17 +12,6 @@ const formatCounts = (numString: string) => {
   return formatter.format(Number(numString));
 };
 
-const validateUrlFromThumbnails = (thumbnails) => {
-  const urls =
-    thumbnails === undefined
-      ? []
-      : Object.values(thumbnails)
-          .map((v) => v?.url)
-          .filter((v): v is string => v !== undefined);
-  const url = urls.length === 0 ? "default" : urls[0];
-  return url;
-};
-
 const Thumbnail = (props: Props) => {
   const {
     id,
@@ -31,7 +20,14 @@ const Thumbnail = (props: Props) => {
     statistics: { viewCount, likeCount, commentCount },
   } = props.video;
   const tagsValid = tags ?? [];
-  const url = validateUrlFromThumbnails(thumbnails);
+  const urls =
+    thumbnails === undefined
+      ? []
+      : Object.values(thumbnails)
+          .map((v) => v?.url)
+          .filter((v): v is string => v !== undefined);
+  const url = urls.length === 0 ? "default" : urls[0];
+
   return (
     <div className="column is-one-quarter is-full-mobile video">
       <div>

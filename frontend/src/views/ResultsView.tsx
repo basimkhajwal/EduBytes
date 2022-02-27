@@ -10,6 +10,8 @@ import videos from "../data/videos.json";
 import { useParams } from "react-router-dom";
 import { getKeywords, relevancy, sortVideos } from "../utilities/matching";
 
+import { Grid } from "@mui/material";
+
 interface Props {
   onSearch: (query: string) => void;
   backHome: () => void;
@@ -50,15 +52,17 @@ const ResultsView = (props: Props) => {
           <h1 className="is-size-6 has-text-weight-bold">{searchReturnText}</h1>
         </span>
         <div className="columns is-multiline">
-          {myVideos.slice(0, 100).map((v, i) => (
-            <Thumbnail
-              video={v}
-              key={i.toString(10)}
-              onSearch={props.onSearch}
-              onVideoSelect={props.onVideoSelect}
-              backHome={props.backHome}
-            />
-          ))}
+          <Grid container spacing={3}>
+            {myVideos.slice(0, 100).map((v, i) => (
+              <Grid item xs={12} sm={6} md={4} lg={3}><Thumbnail
+                video={v}
+                key={i.toString(10)}
+                onSearch={props.onSearch}
+                onVideoSelect={props.onVideoSelect}
+                backHome={props.backHome}
+              /></Grid>
+            ))}
+          </Grid>
         </div>
       </section>
     </>

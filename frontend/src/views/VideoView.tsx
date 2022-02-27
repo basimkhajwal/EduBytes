@@ -2,6 +2,8 @@ import React from "react";
 import "./VideoView.css";
 import Video from "../models/Video";
 import Navbar from "../components/Navbar/Navbar";
+import { formatCounts } from "../utilities/countHelper";
+
 import {
   Accordion,
   AccordionDetails,
@@ -60,7 +62,16 @@ const View = (props: Props) => {
         >
           {title}
         </Typography>
-        <Card component="div" className="block playerContainer">
+        <Card
+          component="div"
+          className="block playerContainer"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            border: "none",
+            boxShadow: "none",
+          }}
+        >
           <CardMedia
             component="iframe"
             src={`https://www.youtube.com/embed/${id}?autoplay=1`}
@@ -84,12 +95,12 @@ const View = (props: Props) => {
           </Grid>
           <Grid item xs="auto">
             <Typography component="div" className="is-size-4">
-              {viewCount + " views"}
+              {formatCounts(viewCount) + " views"}
             </Typography>
           </Grid>
           <Grid item xs="auto">
             <Typography component="div" className="is-size-4">
-              {likeCount + " likes"}
+              {formatCounts(likeCount) + " likes"}
             </Typography>
           </Grid>
         </Grid>

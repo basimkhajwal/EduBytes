@@ -10,7 +10,10 @@ import "./App.css";
 import videos from "./data/videos.json";
 
 // type PageState = { type: "main" } | { type: "video"; video: Video };
-type PageState = { type: "main" } | { type: "searched"; query: string } | { type: "video"; video: Video };
+type PageState =
+  | { type: "main" }
+  | { type: "searched"; query: string }
+  | { type: "video"; video: Video };
 
 const App = () => {
   const [state, setState] = React.useState<PageState>({ type: "main" });
@@ -20,7 +23,7 @@ const App = () => {
       top: 0,
       left: 0,
       behavior: "smooth",
-    })
+    });
     const keyWords = query.toLowerCase().split(" ");
     function videoScore(video: Video) {
       return keyWords.filter(
@@ -31,18 +34,31 @@ const App = () => {
     setState({ type: "searched", query: query });
   };
 
-  const backHome = () => { setState({ type: "main" }); };
+  const backHome = () => {
+    setState({ type: "main" });
+  };
 
   const onVideoSelect = (video: Video) => {
     setState({ type: "video", video: video });
   };
 
   return state.type === "main" ? (
-    <MainView onSearch={onSearch} backHome={backHome} onVideoSelect={onVideoSelect} />
+    <MainView
+      onSearch={onSearch}
+      backHome={backHome}
+      onVideoSelect={onVideoSelect}
+    />
+  ) : state.type === "searched" ? (
+    <ResultsView
+      query={state.query}
+      onSearch={onSearch}
+      videos={videos}
+      backHome={backHome}
+      onVideoSelect={onVideoSelect}
+    />
   ) : (
-    state.type === "searched" ? (
-      <ResultsView query={state.query} onSearch={onSearch} videos={videos} backHome={backHome} onVideoSelect={onVideoSelect} />
-    ) : (<VideoView video={state.video} onSearch={onSearch} backHome={backHome} />));
+    <VideoView video={state.video} onSearch={onSearch} backHome={backHome} />
+  );
 };
 
 export default App;

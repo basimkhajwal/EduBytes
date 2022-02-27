@@ -2,8 +2,18 @@ import React from "react";
 import "./VideoView.css";
 import Video from "../models/Video";
 import Navbar from "../components/Navbar/Navbar";
-import { Accordion, AccordionDetails, AccordionSummary, Card, CardMedia, Fab, Grid, Stack, Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Card,
+  CardMedia,
+  Fab,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export interface Props {
   video: Video;
@@ -27,7 +37,12 @@ const View = (props: Props) => {
       <Navbar backHome={props.backHome} />
       <br />
       <Stack spacing={3} sx={{ maxHeight: "100%", overflow: "auto" }}>
-        <Typography component="h1" className="title is-2 block has-text-centered">{title}</Typography>
+        <Typography
+          component="h1"
+          className="title is-2 block has-text-centered"
+        >
+          {title}
+        </Typography>
         <Card component="div" className="block playerContainer">
           <CardMedia
             component="iframe"
@@ -46,37 +61,64 @@ const View = (props: Props) => {
         </Card>
         <Grid container spacing={3}>
           <Grid item xs="auto">
-            <Typography component="div" className="is-size-4">{"Channel: " + channelTitle}</Typography>
+            <Typography component="div" className="is-size-4">
+              {"Channel: " + channelTitle}
+            </Typography>
           </Grid>
           <Grid item xs="auto">
-            <Typography component="div" className="is-size-4">{viewCount + " views"}</Typography>
+            <Typography component="div" className="is-size-4">
+              {viewCount + " views"}
+            </Typography>
           </Grid>
           <Grid item xs="auto">
-            <Typography component="div" className="is-size-4">{likeCount + " likes"}</Typography>
+            <Typography component="div" className="is-size-4">
+              {likeCount + " likes"}
+            </Typography>
           </Grid>
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs="auto">
             Tags:
           </Grid>
-          {tags === undefined ? (<></>) : tags.map((tag: string) => {
-            return <Grid item xs="auto"><Fab className="tag is-link is-light"
-              size="small" onClick={() => props.onSearch(tag)}
-              variant="extended" aria-label="add" sx={{ textTransform: "none" }}>{tag}</Fab></Grid>;
-          })}
+          {tags === undefined ? (
+            <></>
+          ) : (
+            tags.map((tag: string) => {
+              return (
+                <Grid item xs="auto">
+                  <Fab
+                    className="tag is-link is-light"
+                    size="small"
+                    onClick={() => props.onSearch(tag)}
+                    variant="extended"
+                    aria-label="add"
+                    sx={{ textTransform: "none" }}
+                  >
+                    {tag}
+                  </Fab>
+                </Grid>
+              );
+            })
+          )}
         </Grid>
         <div>
-
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography component="h4" className="title is-4 block has-text-centered">Description</Typography>
+              <Typography
+                component="h4"
+                className="title is-4 block has-text-centered"
+              >
+                Description
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography component="div" className="is-size-6">{formattedDescription}</Typography>
+              <Typography component="div" className="is-size-6">
+                {formattedDescription}
+              </Typography>
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -85,10 +127,17 @@ const View = (props: Props) => {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography component="h4" className="title is-4 block has-text-centered">Relevant Links</Typography>
+              <Typography
+                component="h4"
+                className="title is-4 block has-text-centered"
+              >
+                Relevant Links
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography component="div" className="is-size-6">{joinedTags}</Typography>
+              <Typography component="div" className="is-size-6">
+                {joinedTags}
+              </Typography>
             </AccordionDetails>
           </Accordion>
         </div>

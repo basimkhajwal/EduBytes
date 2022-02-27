@@ -45,5 +45,5 @@ for c in contents:
         keywords += extract_keywords(nlp, c["tags"], ['PROPN'])
     res[c['id']] = keywords
 
-with open("keywords.json", "w") as write_file:
+with open("./frontend/src/data/tags.json", "w+") as write_file:
     json.dump(res, write_file)

@@ -8,6 +8,11 @@ interface Props {
 }
 
 const Navbar = (props: Props) => {
+  function clearHistory() {
+    window.localStorage.removeItem("history");
+    props.backHome();
+  }
+
   return (
     <nav
       className="navbar has-shadow"
@@ -25,6 +30,11 @@ const Navbar = (props: Props) => {
         </a>
       </div>
       <div className="navbar-end" id="nav-links">
+        <div className="navbar-item">
+          <button className="button is-primary is-small" onClick={clearHistory}>
+            Clear History
+          </button>
+        </div>
         <a className="navbar-item">
           <a href="https://oxfordhack22.co.uk">
             <div>

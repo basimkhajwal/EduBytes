@@ -106,7 +106,7 @@ const MainView = (props: Props) => {
         </span>
         <span className="icon-text pb-5">
           <h1 className="is-size-6 has-text-weight-bold">
-            Videos popular with students this month
+            Videos recommended for you
           </h1>
         </span>
         <div className="columns is-full-mobile is-multiline">

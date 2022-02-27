@@ -29,7 +29,12 @@ const Thumbnail = (props: Props) => {
     contentDetails: { duration },
     statistics: { viewCount, likeCount, commentCount },
   } = props.video;
-  const tagsValid = tags ?? [];
+  const tagsCleanup = (tagsValid: string[]) => {
+    return tagsValid.map((tag: string) => {
+      return tag.toLowerCase();
+    });
+  };
+  const tagsValid = tagsCleanup(tags ?? []);
   // const urls =
   //   thumbnails === undefined
   //     ? []

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Navbar from "../components/Navbar/Navbar";
 import Thumbnail from "../components/Thumbnail/Thumbnail";
 
@@ -5,12 +7,15 @@ import "./MainView.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
 
 import videos from "../data/videos.json";
 
+import Video from "../models/Video";
+
 interface Props {
-  onSearch: (query: String) => void;
+  onSearch: (query: string) => void;
+  backHome: () => void;
+  onVideoSelect: (video: Video) => void;
 }
 
 const MainView = (props: Props) => {
@@ -19,10 +24,11 @@ const MainView = (props: Props) => {
 
   const headerTitle = "What do you want to learn 🧠 today?";
   const searchPlaceholderMessage = "How about Quantum Theory?";
+
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar backHome={props.backHome} />
       </div>
       <section className="hero is-medium is-warning landing-comp">
         <div className="hero-body">
@@ -37,10 +43,16 @@ const MainView = (props: Props) => {
                 placeholder={searchPlaceholderMessage}
                 value={searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}
+                onKeyPress={(e) => {
+                  e.key === "Enter" &&
+                    searchInput !== "" &&
+                    props.onSearch(searchInput);
+                }}
               />
             </p>
             <p className="control">
               <button
+                type="submit"
                 className="button is-info"
                 onClick={() => props.onSearch(searchInput)}
               >
@@ -68,7 +80,7 @@ const MainView = (props: Props) => {
         </span>
         <div className="columns is-multiline">
           {videos.slice(0, 100).map((v, i) => (
-            <Thumbnail video={v} key={i.toString(10)} />
+            <Thumbnail video={v} key={i.toString(10)} onSearch={props.onSearch} onVideoSelect={props.onVideoSelect} backHome={props.backHome} />
           ))}
         </div>
       </section>

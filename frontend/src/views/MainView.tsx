@@ -2,6 +2,7 @@ import React from "react";
 
 import Navbar from "../components/Navbar/Navbar";
 import Thumbnail from "../components/Thumbnail/Thumbnail";
+import SearchControl from "../components/SearchControl/SearchControl";
 
 import "./MainView.css";
 
@@ -18,59 +19,59 @@ interface Props {
   onVideoSelect: (video: Video) => void;
 }
 
-const TOPICS = [
-  "Quantum Theory",
-  "Information Theory",
-  "Algorithms",
-  "Hypercube",
-  "Machine Learning",
-  "Euler's Theorem",
-  "Complex Numbers",
-  "Fractals",
-];
+// const TOPICS = [
+//   "Quantum Theory",
+//   "Information Theory",
+//   "Algorithms",
+//   "Hypercube",
+//   "Machine Learning",
+//   "Euler's Theorem",
+//   "Complex Numbers",
+//   "Fractals",
+// ];
 
-interface SearchProps {
-  onSearch: (query: string) => void;
-}
+// interface SearchProps {
+//   onSearch: (query: string) => void;
+// }
 
-const SearchControl = (props: SearchProps) => {
-  const randomTopic = TOPICS[Math.floor(Math.random() * TOPICS.length)];
-  const searchPlaceholderMessage = "How about " + randomTopic + "?";
+// const SearchControl = (props: SearchProps) => {
+//   const randomTopic = TOPICS[Math.floor(Math.random() * TOPICS.length)];
+//   const searchPlaceholderMessage = "How about " + randomTopic + "?";
 
-  const [searchInput, setSearchInput] = React.useState("");
+//   const [searchInput, setSearchInput] = React.useState("");
 
-  function doSearch() {
-    props.onSearch(searchInput !== "" ? searchInput : randomTopic);
-  }
+//   function doSearch() {
+//     props.onSearch(searchInput !== "" ? searchInput : randomTopic);
+//   }
 
-  return (
-    <div className="field is-grouped search-box">
-      <p className="control is-expanded">
-        <input
-          className="input"
-          type="text"
-          placeholder={searchPlaceholderMessage}
-          defaultValue={searchInput}
-          onChange={(event) => setSearchInput(event.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              doSearch();
-            }
-          }}
-        />
-      </p>
-      <p className="control">
-        <button
-          type="submit"
-          className="button is-info"
-          onClick={() => doSearch()}
-        >
-          Search
-        </button>
-      </p>
-    </div>
-  );
-};
+//   return (
+//     <div className="field is-grouped search-box">
+//       <p className="control is-expanded">
+//         <input
+//           className="input"
+//           type="text"
+//           placeholder={searchPlaceholderMessage}
+//           defaultValue={searchInput}
+//           onChange={(event) => setSearchInput(event.target.value)}
+//           onKeyPress={(e) => {
+//             if (e.key === "Enter") {
+//               doSearch();
+//             }
+//           }}
+//         />
+//       </p>
+//       <p className="control">
+//         <button
+//           type="submit"
+//           className="button is-info"
+//           onClick={() => doSearch()}
+//         >
+//           Search
+//         </button>
+//       </p>
+//     </div>
+//   );
+// };
 
 const MainView = (props: Props) => {
   const headerTitle = "What do you want to learn 🧠 today?";

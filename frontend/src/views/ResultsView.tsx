@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar/Navbar";
 import React from "react";
 
 import Thumbnail from "../components/Thumbnail/Thumbnail";
+import SearchControl from "../components/SearchControl/SearchControl";
 import Video from "../models/Video";
 import "./MainView.css";
 
@@ -27,30 +28,9 @@ const ResultsView = (props: Props) => {
       <div>
         <Navbar backHome={props.backHome} />
       </div>
-      <section className="hero landing-comp">
+      <section className="hero is-warning landing-comp">
         <div className="hero-body">
-          <div className="field is-grouped search-box">
-            <p className="control is-expanded">
-              <input
-                className="input"
-                type="text"
-                placeholder={searchPlaceholderMessage}
-                defaultValue={searchInput}
-                onChange={(event) => setSearchInput(event.target.value)}
-                onKeyPress={(e) => {
-                  e.key === "Enter" && searchInput !== "" && props.onSearch(searchInput);
-                }}
-              />
-            </p>
-            <p className="control">
-              <button
-                className="button is-info"
-                onClick={() => props.onSearch(searchInput)}
-              >
-                Search
-              </button>
-            </p>
-          </div>
+          <SearchControl onSearch={props.onSearch} existingQuery={props.query} />
         </div>
       </section>
 

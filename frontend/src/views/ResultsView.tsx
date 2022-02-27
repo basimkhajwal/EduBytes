@@ -18,7 +18,8 @@ interface Props {
 
 const ResultsView = (props: Props) => {
   const [searchInput, setSearchInput] = React.useState("");
-
+  console.log(props.query, searchInput);
+  if (props.query && props.query !== "" && props.query !== searchInput) { setSearchInput(props.query); }
   const searchPlaceholderMessage = "Maybe try Machine Learning?";
   const searchReturnText = "🔎 Based on your search query";
   return (
@@ -34,7 +35,7 @@ const ResultsView = (props: Props) => {
                 className="input"
                 type="text"
                 placeholder={searchPlaceholderMessage}
-                defaultValue={props.query ?? searchInput}
+                defaultValue={searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}
                 onKeyPress={(e) => {
                   e.key === "Enter" && searchInput !== "" && props.onSearch(searchInput);

@@ -54,7 +54,7 @@ const Thumbnail = (props: Props) => {
         {tagsValid.map((tag: string) => {
           return <Fab className="tag is-link is-light"
             size="small" onClick={() => props.onSearch(tag)}
-            variant="extended" aria-label="add">{tag}</Fab>;
+            variant="extended" aria-label="add" sx={{ textTransform: "none" }}>{tag}</Fab>;
         })}
       </CardContent>
     </Card>

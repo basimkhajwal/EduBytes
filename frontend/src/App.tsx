@@ -23,10 +23,20 @@ const App = () => {
   };
 
   const backHome = () => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     navigate("/home");
   };
 
   const onVideoSelect = (video: Video) => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     navigate("/video/" + video.id);
   };
 

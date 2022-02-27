@@ -20,9 +20,11 @@ interface Props {
 const ResultsView = (props: Props) => {
   const [searchInput, setSearchInput] = React.useState("");
   console.log(props.query, searchInput);
-  if (props.query && props.query !== "" && props.query !== searchInput) { setSearchInput(props.query); }
+  if (props.query && props.query !== "" && props.query !== searchInput) {
+    setSearchInput(props.query);
+  }
   const searchPlaceholderMessage = "Maybe try Machine Learning?";
-  const searchReturnText = "🔎 Based on your search query";
+  const searchReturnText = "🔎  ‎  ‎Based on your search query: " + props.query;
   return (
     <>
       <div>
@@ -30,7 +32,10 @@ const ResultsView = (props: Props) => {
       </div>
       <section className="hero is-warning landing-comp">
         <div className="hero-body">
-          <SearchControl onSearch={props.onSearch} existingQuery={props.query} />
+          <SearchControl
+            onSearch={props.onSearch}
+            existingQuery={props.query}
+          />
         </div>
       </section>
 
@@ -49,7 +54,13 @@ const ResultsView = (props: Props) => {
         </span>
         <div className="columns is-multiline">
           {props.videos.slice(0, 100).map((v, i) => (
-            <Thumbnail video={v} key={i.toString(10)} onSearch={props.onSearch} onVideoSelect={props.onVideoSelect} backHome={props.backHome} />
+            <Thumbnail
+              video={v}
+              key={i.toString(10)}
+              onSearch={props.onSearch}
+              onVideoSelect={props.onVideoSelect}
+              backHome={props.backHome}
+            />
           ))}
         </div>
       </section>

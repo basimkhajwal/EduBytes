@@ -6,25 +6,29 @@ import SearchControl from "../components/SearchControl/SearchControl";
 import Video from "../models/Video";
 import "./MainView.css";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVideo } from "@fortawesome/free-solid-svg-icons";
+import videos from "../data/videos.json";
+import { useParams } from "react-router-dom";
 
 interface Props {
-  query: string;
-  videos: Video[];
   onSearch: (query: string) => void;
   backHome: () => void;
   onVideoSelect: (video: Video) => void;
 }
 
 const ResultsView = (props: Props) => {
-  const [searchInput, setSearchInput] = React.useState("");
-  console.log(props.query, searchInput);
-  if (props.query && props.query !== "" && props.query !== searchInput) {
-    setSearchInput(props.query);
+  const params = useParams();
+  const query = decodeURI(params.query ?? "");
+
+  const searchReturnText = "🔎  ‎  ‎Based on your search query: " + query;
+
+  const keyWords = query.toLowerCase().split(" ");
+  function videoScore(video: Video) {
+    return keyWords.filter(
+      (word) => video.snippet.description.toLowerCase().indexOf(word) !== -1
+    ).length;
   }
-  const searchPlaceholderMessage = "Maybe try Machine Learning?";
-  const searchReturnText = "🔎  ‎  ‎Based on your search query: " + props.query;
+  videos.sort((a, b) => videoScore(b) - videoScore(a));
+
   return (
     <>
       <div>
@@ -32,10 +36,7 @@ const ResultsView = (props: Props) => {
       </div>
       <section className="hero is-warning landing-comp">
         <div className="hero-body">
-          <SearchControl
-            onSearch={props.onSearch}
-            existingQuery={props.query}
-          />
+          <SearchControl onSearch={props.onSearch} existingQuery={query} />
         </div>
       </section>
 
@@ -53,7 +54,7 @@ const ResultsView = (props: Props) => {
           <h1 className="is-size-6 has-text-weight-bold">{searchReturnText}</h1>
         </span>
         <div className="columns is-multiline">
-          {props.videos.slice(0, 100).map((v, i) => (
+          {videos.slice(0, 100).map((v, i) => (
             <Thumbnail
               video={v}
               key={i.toString(10)}

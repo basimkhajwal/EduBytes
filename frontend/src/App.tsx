@@ -7,42 +7,58 @@ import Video from "./models/Video";
 
 import "./App.css";
 
-import videos from "./data/videos.json";
-
-// type PageState = { type: "main" } | { type: "video"; video: Video };
-type PageState = { type: "main" } | { type: "searched"; query: string } | { type: "video"; video: Video };
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 
 const App = () => {
-  const [state, setState] = React.useState<PageState>({ type: "main" });
+  const navigate = useNavigate();
 
   const onSearch = (query: string) => {
     window.scroll({
       top: 0,
       left: 0,
       behavior: "smooth",
-    })
-    const keyWords = query.toLowerCase().split(" ");
-    function videoScore(video: Video) {
-      return keyWords.filter(
-        (word) => video.snippet.description.toLowerCase().indexOf(word) !== -1
-      ).length;
-    }
-    videos.sort((a, b) => videoScore(b) - videoScore(a));
-    setState({ type: "searched", query: query });
+    });
+    const encoded = encodeURI(query);
+    navigate("/results/" + encoded);
   };
 
-  const backHome = () => { setState({ type: "main" }); };
+  const backHome = () => {
+    navigate("/home");
+  };
 
   const onVideoSelect = (video: Video) => {
-    setState({ type: "video", video: video });
+    navigate("/video/" + video.id);
   };
 
-  return state.type === "main" ? (
-    <MainView onSearch={onSearch} backHome={backHome} onVideoSelect={onVideoSelect} />
-  ) : (
-    state.type === "searched" ? (
-      <ResultsView query={state.query} onSearch={onSearch} videos={videos} backHome={backHome} onVideoSelect={onVideoSelect} />
-    ) : (<VideoView video={state.video} onSearch={onSearch} backHome={backHome} />));
+  return (
+    <Routes>
+      <Route
+        path="/home"
+        element={
+          <MainView
+            onSearch={onSearch}
+            backHome={backHome}
+            onVideoSelect={onVideoSelect}
+          />
+        }
+      />
+      <Route
+        path="/results/:query"
+        element={
+          <ResultsView
+            onSearch={onSearch}
+            backHome={backHome}
+            onVideoSelect={onVideoSelect}
+          />
+        }
+      />
+      <Route
+        path="/video/:id"
+        element={<VideoView onSearch={onSearch} backHome={backHome} />}
+      />
+      <Route path="*" element={<Navigate to="/home" />} />
+    </Routes>
+  );
 };
 
 export default App;

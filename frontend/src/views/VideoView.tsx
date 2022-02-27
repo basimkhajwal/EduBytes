@@ -43,7 +43,11 @@ const View = (props: Props) => {
         >
           {title}
         </Typography>
-        <Card component="div" className="block playerContainer">
+        <Card
+          component="div"
+          className="block playerContainer"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           <CardMedia
             component="iframe"
             src={`https://www.youtube.com/embed/${id}?autoplay=1`}

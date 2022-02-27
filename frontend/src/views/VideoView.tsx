@@ -2,7 +2,9 @@ import React from "react";
 import "./VideoView.css";
 import Video from "../models/Video";
 import Navbar from "../components/Navbar/Navbar";
-import { Card, CardMedia, Container, Divider, Fab, Grid, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Card, CardMedia, Fab, Grid, Stack, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 export interface Props {
   video: Video;
   onSearch: (query: string) => void;
@@ -37,8 +39,8 @@ const View = (props: Props) => {
               frameBorder: 0,
               allow: "autoplay; picture-in-picture; fullscreen",
               sandbox: "allow-same-origin allow-scripts",
-              width: window.innerWidth - 20,
-              height: (window.innerWidth - 20) * 0.5625,
+              width: window.innerWidth * 0.8 - 20,
+              height: (window.innerWidth * 0.8 - 20) * 0.5625,
             }}
           />
         </Card>
@@ -54,27 +56,42 @@ const View = (props: Props) => {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs="auto">Tags:</Grid>
+          <Grid item xs="auto">
+            Tags:
+          </Grid>
           {tags === undefined ? (<></>) : tags.map((tag: string) => {
             return <Grid item xs="auto"><Fab className="tag is-link is-light"
               size="small" onClick={() => props.onSearch(tag)}
               variant="extended" aria-label="add" sx={{ textTransform: "none" }}>{tag}</Fab></Grid>;
           })}
         </Grid>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <Stack spacing={3}>
+        <div>
+
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
               <Typography component="h4" className="title is-4 block has-text-centered">Description</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
               <Typography component="div" className="is-size-6">{formattedDescription}</Typography>
-            </Stack>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Stack spacing={3}>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
               <Typography component="h4" className="title is-4 block has-text-centered">Relevant Links</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
               <Typography component="div" className="is-size-6">{joinedTags}</Typography>
-            </Stack>
-          </Grid>
-        </Grid>
+            </AccordionDetails>
+          </Accordion>
+        </div>
       </Stack>
     </>
   );

@@ -16,6 +16,11 @@ const App = () => {
   const [state, setState] = React.useState<PageState>({ type: "main" });
 
   const onSearch = (query: string) => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    })
     const keyWords = query.toLowerCase().split(" ");
     function videoScore(video: Video) {
       return keyWords.filter(
@@ -23,11 +28,6 @@ const App = () => {
       ).length;
     }
     videos.sort((a, b) => videoScore(b) - videoScore(a));
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    })
     setState({ type: "searched", query: query });
   };
 
@@ -42,7 +42,7 @@ const App = () => {
   ) : (
     state.type === "searched" ? (
       <ResultsView query={state.query} onSearch={onSearch} videos={videos} backHome={backHome} onVideoSelect={onVideoSelect} />
-    ) : (<VideoView video={state.video} backHome={backHome} />));
+    ) : (<VideoView video={state.video} onSearch={onSearch} backHome={backHome} />));
 };
 
 export default App;

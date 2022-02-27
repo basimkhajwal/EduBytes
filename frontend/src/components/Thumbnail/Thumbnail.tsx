@@ -14,6 +14,7 @@ const Thumbnail = (props: Props) => {
     contentDetails: { duration },
     statistics: { viewCount, likeCount, commentCount },
   } = props.video;
+  const tagsValid = tags ?? [];
   const urls =
     thumbnails === undefined
       ? []
@@ -41,7 +42,7 @@ const Thumbnail = (props: Props) => {
         {viewCount} views • {likeCount} said helpful • {commentCount} comments
       </div>
       <div className="tags pt-2">
-        {tags.map((tag: string) => {
+        {tagsValid.map((tag: string) => {
           return <span className="tag is-link is-light">{tag}</span>;
         })}
       </div>

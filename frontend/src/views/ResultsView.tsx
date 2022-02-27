@@ -8,6 +8,7 @@ import "./MainView.css";
 
 import videos from "../data/videos.json";
 import { useParams } from "react-router-dom";
+import { getKeywords, relevancy, sortVideos } from "../utilities/matching";
 
 interface Props {
   onSearch: (query: string) => void;
@@ -21,13 +22,8 @@ const ResultsView = (props: Props) => {
 
   const searchReturnText = "🔎  ‎  ‎Based on your search query: " + query;
 
-  const keyWords = query.toLowerCase().split(" ");
-  function videoScore(video: Video) {
-    return keyWords.filter(
-      (word) => video.snippet.description.toLowerCase().indexOf(word) !== -1
-    ).length;
-  }
-  videos.sort((a, b) => videoScore(b) - videoScore(a));
+  const keywords = getKeywords(query);
+  const myVideos = sortVideos(videos as Video[], keywords);
 
   return (
     <>
@@ -54,7 +50,7 @@ const ResultsView = (props: Props) => {
           <h1 className="is-size-6 has-text-weight-bold">{searchReturnText}</h1>
         </span>
         <div className="columns is-multiline">
-          {videos.slice(0, 100).map((v, i) => (
+          {myVideos.slice(0, 100).map((v, i) => (
             <Thumbnail
               video={v}
               key={i.toString(10)}

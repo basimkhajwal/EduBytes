@@ -26,7 +26,7 @@ export interface Props {
 }
 
 function findVideo(videoId: string | undefined): Video | undefined {
-  for (const video of videos) {
+  for (const video of videos as Video[]) {
     if (video.id === videoId) {
       return video;
     }
@@ -37,6 +37,17 @@ function findVideo(videoId: string | undefined): Video | undefined {
 const View = (props: Props) => {
   const params = useParams();
   const video = findVideo(params.id);
+
+  React.useEffect(() => {
+    if (video !== undefined) {
+      const history = window.localStorage.getItem("history") ?? "";
+      const newHistory = [video.id, ...history.split(",")]
+        .splice(0, 20)
+        .join(",");
+      window.localStorage.setItem("history", newHistory);
+    }
+  });
+
   if (video === undefined) {
     return <div>Error: Video not found!</div>;
   }

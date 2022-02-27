@@ -12,6 +12,7 @@ import { faVideo } from "@fortawesome/free-solid-svg-icons";
 import videos from "../data/videos.json";
 
 import Video from "../models/Video";
+import { sortVideos, watchedTags } from "../utilities/matching";
 
 interface Props {
   onSearch: (query: string) => void;
@@ -76,6 +77,9 @@ interface Props {
 const MainView = (props: Props) => {
   const headerTitle = "What do you want to learn 🧠 today?";
 
+  const keywords = watchedTags(videos as Video[]);
+  const myVideos = sortVideos(videos as Video[], keywords);
+
   return (
     <>
       <div>
@@ -106,7 +110,7 @@ const MainView = (props: Props) => {
           </h1>
         </span>
         <div className="columns is-multiline">
-          {videos.slice(0, 100).map((v, i) => (
+          {myVideos.slice(0, 100).map((v, i) => (
             <Thumbnail
               video={v}
               key={i.toString(10)}

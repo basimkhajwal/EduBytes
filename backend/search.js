@@ -1,19 +1,13 @@
 var { google } = require('googleapis');
 
 
-function getPlaylistId(auth, username = "", channelId = "") {
+function getPlaylistId(auth, channelId) {
     var service = google.youtube('v3');
     var promise = new Promise((resolve, reject) => {
-        console.log("Username: " + username);
-        console.log("Channel ID: " + channelId);
         var parameters = {
             auth: auth,
-            part: 'snippet,contentDetails'
-        }
-        if (username != "") {
-            parameters['forUsername'] = username;
-        } else if (channelId != "") {
-            parameters['id'] = channelId;
+            part: 'snippet,contentDetails',
+            id: channelId,
         }
         console.log(parameters);
         service.channels.list(parameters, function (err, response) {

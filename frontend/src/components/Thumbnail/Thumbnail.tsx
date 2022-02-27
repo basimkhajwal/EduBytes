@@ -33,7 +33,9 @@ const Thumbnail = (props: Props) => {
       <div>
         <div className="card-image">
           <figure>
-            <img src={url}></img>
+            <a href="#">
+              <img src={url}></img>
+            </a>
           </figure>
         </div>
         {/* <div className="is-overlay">

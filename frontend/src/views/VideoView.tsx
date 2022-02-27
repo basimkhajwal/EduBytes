@@ -2,6 +2,8 @@ import React from "react";
 import "./VideoView.css";
 import Video from "../models/Video";
 import Navbar from "../components/Navbar/Navbar";
+import { formatCounts } from "../utilities/countHelper";
+
 import {
   Accordion,
   AccordionDetails,
@@ -76,12 +78,12 @@ const View = (props: Props) => {
           </Grid>
           <Grid item xs="auto">
             <Typography component="div" className="is-size-4">
-              {viewCount + " views"}
+              {formatCounts(viewCount) + " views"}
             </Typography>
           </Grid>
           <Grid item xs="auto">
             <Typography component="div" className="is-size-4">
-              {likeCount + " likes"}
+              {formatCounts(likeCount) + " likes"}
             </Typography>
           </Grid>
         </Grid>

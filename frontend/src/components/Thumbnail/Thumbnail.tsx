@@ -3,6 +3,8 @@ import "./Thumbnail.css";
 
 import Video from "../../models/Video";
 
+import { formatCounts } from "../../utilities/countHelper";
+
 import {
   Card,
   CardContent,
@@ -19,11 +21,6 @@ interface Props {
   backHome: () => void;
   onVideoSelect: (video: Video) => void;
 }
-
-const formatCounts = (numString: string) => {
-  const formatter = Intl.NumberFormat("en", { notation: "compact" });
-  return formatter.format(Number(numString));
-};
 
 const Thumbnail = (props: Props) => {
   const {

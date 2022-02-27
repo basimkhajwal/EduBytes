@@ -3,10 +3,11 @@ import "./Thumbnail.css";
 
 import Video from "../../models/Video";
 
-import { Card, CardContent, CardMedia, Chip, Link, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Chip, Fab, Link, Typography } from "@mui/material";
 
 interface Props {
   video: Video;
+  onSearch: (query: string) => void;
   backHome: () => void;
   onVideoSelect: (video: Video) => void;
 }
@@ -51,7 +52,9 @@ const Thumbnail = (props: Props) => {
       </CardContent>
       <CardContent component="div" className="tags pt-2">
         {tagsValid.map((tag: string) => {
-          return <Chip className="tag is-link is-light" size="small" label={tag} />;
+          return <Fab className="tag is-link is-light"
+            size="small" onClick={() => props.onSearch(tag)}
+            variant="extended" aria-label="add">{tag}</Fab>;
         })}
       </CardContent>
     </Card>

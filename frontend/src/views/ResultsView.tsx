@@ -9,8 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
+  query: string;
   videos: Video[];
-  onSearch: (query: String) => void;
+  onSearch: (query: string) => void;
   backHome: () => void;
   onVideoSelect: (video: Video) => void;
 }
@@ -23,7 +24,7 @@ const ResultsView = (props: Props) => {
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar backHome={props.backHome} />
       </div>
       <section className="hero landing-comp">
         <div className="hero-body">
@@ -33,7 +34,7 @@ const ResultsView = (props: Props) => {
                 className="input"
                 type="text"
                 placeholder={searchPlaceholderMessage}
-                value={searchInput}
+                value={props.query ?? searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}
                 onKeyPress={(e) => {
                   e.key === "Enter" && props.onSearch(searchInput);
@@ -67,7 +68,7 @@ const ResultsView = (props: Props) => {
         </span>
         <div className="columns is-multiline">
           {props.videos.slice(0, 100).map((v, i) => (
-            <Thumbnail video={v} key={i.toString(10)} onVideoSelect={props.onVideoSelect} backHome={props.backHome} />
+            <Thumbnail video={v} key={i.toString(10)} onSearch={props.onSearch} onVideoSelect={props.onVideoSelect} backHome={props.backHome} />
           ))}
         </div>
       </section>

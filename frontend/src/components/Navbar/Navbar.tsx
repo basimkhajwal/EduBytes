@@ -3,7 +3,11 @@ import "bulma/css/bulma.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignIn, faCoffee } from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = () => {
+interface Props {
+  backHome: () => void;
+}
+
+const Navbar = (props: Props) => {
   return (
     <nav
       className="navbar has-shadow"
@@ -14,7 +18,7 @@ const Navbar = () => {
       <div className="navbar-brand">
         <a className="navbar-item">
           <div>
-            <a href="#">
+            <a onClick={props.backHome}>
               <strong>EduBytes</strong>
             </a>
           </div>

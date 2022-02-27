@@ -27,16 +27,53 @@ const TOPICS = [
   "Euler's Theorem",
   "Complex Numbers",
   "Fractals",
-]
+];
 
-const MainView = (props: Props) => {
-  const [searchInput, setSearchInput] = React.useState("");
-  console.log(videos.slice(0, 6));
+interface SearchProps {
+  onSearch: (query: string) => void;
+}
 
-  const headerTitle = "What do you want to learn 🧠 today?";
-
+const SearchControl = (props: SearchProps) => {
   const randomTopic = TOPICS[Math.floor(Math.random() * TOPICS.length)];
   const searchPlaceholderMessage = "How about " + randomTopic + "?";
+
+  const [searchInput, setSearchInput] = React.useState("");
+
+  function doSearch() {
+    props.onSearch(searchInput !== "" ? searchInput : randomTopic);
+  }
+
+  return (
+    <div className="field is-grouped search-box">
+      <p className="control is-expanded">
+        <input
+          className="input"
+          type="text"
+          placeholder={searchPlaceholderMessage}
+          defaultValue={searchInput}
+          onChange={(event) => setSearchInput(event.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              doSearch();
+            }
+          }}
+        />
+      </p>
+      <p className="control">
+        <button
+          type="submit"
+          className="button is-info"
+          onClick={() => doSearch()}
+        >
+          Search
+        </button>
+      </p>
+    </div>
+  );
+};
+
+const MainView = (props: Props) => {
+  const headerTitle = "What do you want to learn 🧠 today?";
 
   return (
     <>
@@ -48,31 +85,7 @@ const MainView = (props: Props) => {
           <div className="is-size-1">
             <h1 className="has-text-weight-bold">{headerTitle}</h1>
           </div>
-          <div className="field is-grouped search-box">
-            <p className="control is-expanded">
-              <input
-                className="input"
-                type="text"
-                placeholder={searchPlaceholderMessage}
-                defaultValue={searchInput}
-                onChange={(event) => setSearchInput(event.target.value)}
-                onKeyPress={(e) => {
-                  e.key === "Enter" &&
-                    searchInput !== "" &&
-                    props.onSearch(searchInput !== "" ? searchInput : randomTopic);
-                }}
-              />
-            </p>
-            <p className="control">
-              <button
-                type="submit"
-                className="button is-info"
-                onClick={() => props.onSearch(searchInput)}
-              >
-                Search
-              </button>
-            </p>
-          </div>
+          <SearchControl onSearch={props.onSearch} />
         </div>
       </section>
 
@@ -93,7 +106,13 @@ const MainView = (props: Props) => {
         </span>
         <div className="columns is-multiline">
           {videos.slice(0, 100).map((v, i) => (
-            <Thumbnail video={v} key={i.toString(10)} onSearch={props.onSearch} onVideoSelect={props.onVideoSelect} backHome={props.backHome} />
+            <Thumbnail
+              video={v}
+              key={i.toString(10)}
+              onSearch={props.onSearch}
+              onVideoSelect={props.onVideoSelect}
+              backHome={props.backHome}
+            />
           ))}
         </div>
       </section>

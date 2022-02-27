@@ -2,5 +2,9 @@
   "workspaces": [
     "./frontend",
     "./backend"
-  ]
+  ],
+  "dependencies": {
+    "@material-ui/icons": "^4.11.2",
+    "@mui/icons-material": "^5.4.2"
+  }
 }

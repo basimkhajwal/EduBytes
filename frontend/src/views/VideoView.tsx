@@ -13,6 +13,9 @@ const View = (props: Props) => {
     id,
     snippet: { title, description },
   } = props.video;
+  const formattedDescription = description
+    .split("\n")
+    .map((str) => <p>{str}</p>);
   return (
     <div className="box has-text-centered">
       <div className="block">
@@ -25,8 +28,8 @@ const View = (props: Props) => {
         ></iframe>
       </div>
       <h3 className="title is-4 block">{title}</h3>
-      <h6 className="title is-6 block">Description</h6>
-      <p className="block">{description}</p>
+      <h6 className="title is-6 block">Descriptions</h6>
+      <div className="is-size-7">{formattedDescription}</div>
     </div>
   );
 };

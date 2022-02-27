@@ -31,7 +31,7 @@ const Navbar = (props: Props) => {
       </div>
       <div className="navbar-end" id="nav-links">
         <div className="navbar-item">
-          <button className="button is-primary is-small" onClick={clearHistory}>
+          <button className="button is-light is-small" onClick={clearHistory}>
             Clear History
           </button>
         </div>

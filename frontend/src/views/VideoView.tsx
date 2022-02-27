@@ -19,6 +19,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useParams } from "react-router-dom";
 
 import videos from "../data/videos.json";
+import links from "../data/links.json";
+const linkKeys = links.map((tup) => tup.tag);
 
 export interface Props {
   onSearch: (query: string) => void;
@@ -32,6 +34,20 @@ function findVideo(videoId: string | undefined): Video | undefined {
     }
   }
   return undefined;
+}
+
+export interface TagLink {
+  tag: string;
+  url: string;
+}
+
+function findUrl(tag: string): string {
+  for (const tup of links as TagLink[]) {
+    if (tup.tag === tag) {
+      return tup.url;
+    }
+  }
+  return "";
 }
 
 const View = (props: Props) => {
@@ -60,8 +76,12 @@ const View = (props: Props) => {
   const formattedDescription = description
     .split("\n")
     .map((str) => <p>{str}</p>);
-  console.log(formattedDescription);
-  const joinedTags = tags === undefined ? "" : tags.join(", ");
+  console.log(tags)
+  console.log(linkKeys.slice(0, 5));
+  const haveLinks = tags?.filter((key) => {
+    console.log(key)
+    return linkKeys.includes(key);
+  });
   return (
     <>
       <Navbar backHome={props.backHome} />
@@ -174,9 +194,10 @@ const View = (props: Props) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography component="div" className="is-size-6">
-                {joinedTags}
-              </Typography>
+              {haveLinks && haveLinks?.length > 0 ? haveLinks.map((tag: string) => {
+                const url = findUrl(tag);
+                return (<Typography component="div" className="is-size-6">More on {tag}: <a href={url}>{url}</a></Typography>);
+              }) : <Typography component="div" className="is-size-6">We were unable to find any relevant links.</Typography>}
             </AccordionDetails>
           </Accordion>
         </div>

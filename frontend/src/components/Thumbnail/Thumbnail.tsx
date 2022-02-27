@@ -3,8 +3,12 @@ import "./Thumbnail.css";
 
 import Video from "../../models/Video";
 
+import { Card, CardContent, CardMedia, Chip, Link, Typography } from "@mui/material";
+
 interface Props {
   video: Video;
+  backHome: () => void;
+  onVideoSelect: (video: Video) => void;
 }
 
 const formatCounts = (numString: string) => {
@@ -20,43 +24,66 @@ const Thumbnail = (props: Props) => {
     statistics: { viewCount, likeCount, commentCount },
   } = props.video;
   const tagsValid = tags ?? [];
-  const urls =
-    thumbnails === undefined
-      ? []
-      : Object.values(thumbnails)
-          .map((v) => v?.url)
-          .filter((v): v is string => v !== undefined);
-  const url = urls.length === 0 ? "default" : urls[0];
+  // const urls =
+  //   thumbnails === undefined
+  //     ? []
+  //     : Object.values(thumbnails)
+  //       .map((v) => v?.url)
+  //       .filter((v): v is string => v !== undefined);
+  // const url = urls.length === 0 ? "default" : urls[0];
+
+  const url = thumbnails ? (
+    thumbnails.maxres ? thumbnails.maxres.url : (
+      thumbnails.high ? thumbnails.high.url : (
+        thumbnails.medium ? thumbnails.medium.url : (
+          thumbnails.default ? thumbnails.default.url : "default"
+        )))) : "default";
 
   return (
-    <div className="column is-one-quarter is-full-mobile video">
-      <div>
-        <div className="card-image">
-          <figure>
-            <a href="#">
-              <img src={url}></img>
-            </a>
-          </figure>
-        </div>
-        {/* <div className="is-overlay">
-          <div className="thumbnail-length is-pulled-right">
-            <span className="tag is-dark">{videoDuration}</span>
-          </div>
-        </div> */}
-      </div>
-      <div className="has-text-weight-bold">{title}</div>
-      <div className="is-size-7">{channelTitle}</div>
-      <div className="is-size-7">
-        {formatCounts(viewCount)} views • {formatCounts(likeCount)} said helpful
-        • {formatCounts(commentCount)} comments
-      </div>
-      <div className="tags pt-2">
+    <Card className="column is-one-quarter is-full-mobile video">
+      <CardMedia component="img" src={url} className="card-image" />
+      <CardContent>
+        <Link underline="hover" className="has-text-weigt-bold" onClick={() => props.onVideoSelect(props.video)}>{title}</Link>
+        <Typography component="div" className="is-size-7">{channelTitle}</Typography>
+        <Typography component="div" className="is-size-7">
+          {formatCounts(viewCount)} views • {formatCounts(likeCount)} said helpful • {formatCounts(commentCount)} comments
+        </Typography>
+      </CardContent>
+      <CardContent component="div" className="tags pt-2">
         {tagsValid.map((tag: string) => {
-          return <span className="tag is-link is-light">{tag}</span>;
+          return <Chip className="tag is-link is-light" size="small" label={tag} />;
         })}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
+
+  // return (
+  //   <div className="column is-one-quarter is-full-mobile video">
+  //     <div>
+  //       <div className="card-image">
+  //         <figure>
+  //           <img src={url}></img>
+  //         </figure>
+  //       </div>
+  //       {/* <div className="is-overlay">
+  //         <div className="thumbnail-length is-pulled-right">
+  //           <span className="tag is-dark">{videoDuration}</span>
+  //         </div>
+  //       </div> */}
+  //     </div>
+  //     <div className="has-text-weight-bold">{title}</div>
+  //     <div className="is-size-7">{channelTitle}</div>
+  //     <div className="is-size-7">
+  //       {formatCounts(viewCount)} views • {formatCounts(likeCount)} said helpful
+  //       • {formatCounts(commentCount)} comments
+  //     </div>
+  //     <div className="tags pt-2">
+  //       {tagsValid.map((tag: string) => {
+  //         return <span className="tag is-link is-light">{tag}</span>;
+  //       })}
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default Thumbnail;

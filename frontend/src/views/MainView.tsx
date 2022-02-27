@@ -10,8 +10,12 @@ import { faVideo } from "@fortawesome/free-solid-svg-icons";
 
 import videos from "../data/videos.json";
 
+import Video from "../models/Video";
+
 interface Props {
   onSearch: (query: String) => void;
+  backHome: () => void;
+  onVideoSelect: (video: Video) => void;
 }
 
 const MainView = (props: Props) => {
@@ -76,7 +80,7 @@ const MainView = (props: Props) => {
         </span>
         <div className="columns is-multiline">
           {videos.slice(0, 100).map((v, i) => (
-            <Thumbnail video={v} key={i.toString(10)} />
+            <Thumbnail video={v} key={i.toString(10)} onVideoSelect={props.onVideoSelect} backHome={props.backHome} />
           ))}
         </div>
       </section>

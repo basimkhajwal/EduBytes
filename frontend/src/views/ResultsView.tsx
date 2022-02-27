@@ -17,7 +17,7 @@ const ResultsView = (props: Props) => {
   const [searchInput, setSearchInput] = React.useState("");
 
   const searchPlaceholderMessage = "Maybe try Machine Learning?";
-  const searchReturnText = "Your search text goes here";
+  const searchReturnText = "🔎 Based on your search query";
   return (
     <>
       <div>
@@ -51,7 +51,7 @@ const ResultsView = (props: Props) => {
       </section>
 
       <section className="container p-6">
-        <span
+        {/* <span
           className="icon"
           style={{
             display: "inline-block",
@@ -59,7 +59,7 @@ const ResultsView = (props: Props) => {
           }}
         >
           <FontAwesomeIcon icon={faVideo} />
-        </span>
+        </span> */}
         <span className="icon-text pb-5">
           <h1 className="is-size-6 has-text-weight-bold">{searchReturnText}</h1>
         </span>

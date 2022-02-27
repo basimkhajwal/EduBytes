@@ -9,7 +9,8 @@ import "./App.css";
 
 import videos from "./data/videos.json";
 
-type PageState = { type: "main" } | { type: "video"; video: Video };
+// type PageState = { type: "main" } | { type: "video"; video: Video };
+type PageState = { type: "main" } | { type: "searched" };
 
 const App = () => {
   const [state, setState] = React.useState<PageState>({ type: "main" });
@@ -22,13 +23,13 @@ const App = () => {
       ).length;
     }
     videos.sort((a, b) => videoScore(b) - videoScore(a));
-    setState({ type: "video", video: videos[0] });
+    setState({ type: "searched" });
   };
 
   return state.type === "main" ? (
     <MainView onSearch={onSearch} />
   ) : (
-    <VideoView video={state.video} />
+    <ResultsView onSearch={onSearch} videos={videos} />
   );
 };
 

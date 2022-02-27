@@ -1,3 +1,5 @@
+import React from "react";
+
 import Navbar from "../components/Navbar/Navbar";
 import Thumbnail from "../components/Thumbnail/Thumbnail";
 
@@ -5,7 +7,6 @@ import "./MainView.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
 
 import videos from "../data/videos.json";
 

@@ -51,7 +51,7 @@ interface Props {
 
 const MainView = (props: Props) => {
   const [searchInput, setSearchInput] = React.useState("");
-
+  console.log(videos.slice(0, 6));
   return (
     <>
       <div>
@@ -102,15 +102,9 @@ const MainView = (props: Props) => {
           </h1>
         </span>
         <div className="columns is-multiline">
-          {/* <Thumbnail videoInfo={videoInfos[0]} />
-          <Thumbnail videoInfo={videoInfos[1]} />
-          <Thumbnail videoInfo={videoInfos[2]} />
-          <Thumbnail videoInfo={videoInfos[0]} />
-          <Thumbnail videoInfo={videoInfos[1]} />
-          <Thumbnail videoInfo={videoInfos[2]} /> */}
-          {videos.slice(0, 6).map((v) => {
-            <Thumbnail video={v} />;
-          })}
+          {videos.slice(0, 100).map((v, i) => (
+            <Thumbnail video={v} key={i.toString(10)} />
+          ))}
         </div>
       </section>
     </>

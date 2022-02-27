@@ -24,7 +24,7 @@ const TOPICS = [
   "Algorithms",
   "Hypercube",
   "Machine Learning",
-  "Computer Networks",
+  "Euler's Theorem",
   "Complex Numbers",
   "Fractals",
 ]
@@ -35,7 +35,6 @@ const MainView = (props: Props) => {
 
   const headerTitle = "What do you want to learn 🧠 today?";
 
-  // pick a random topic from TOPICS
   const randomTopic = TOPICS[Math.floor(Math.random() * TOPICS.length)];
   const searchPlaceholderMessage = "How about " + randomTopic + "?";
 
@@ -55,10 +54,11 @@ const MainView = (props: Props) => {
                 className="input"
                 type="text"
                 placeholder={searchPlaceholderMessage}
-                value={searchInput}
+                defaultValue={searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}
                 onKeyPress={(e) => {
                   e.key === "Enter" &&
+                    searchInput !== "" &&
                     props.onSearch(searchInput !== "" ? searchInput : randomTopic);
                 }}
               />

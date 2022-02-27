@@ -34,10 +34,10 @@ const ResultsView = (props: Props) => {
                 className="input"
                 type="text"
                 placeholder={searchPlaceholderMessage}
-                value={props.query ?? searchInput}
+                defaultValue={props.query ?? searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}
                 onKeyPress={(e) => {
-                  e.key === "Enter" && props.onSearch(searchInput);
+                  e.key === "Enter" && searchInput !== "" && props.onSearch(searchInput);
                 }}
               />
             </p>

@@ -47,17 +47,19 @@ const Thumbnail = (props: Props) => {
     ? thumbnails.maxres
       ? thumbnails.maxres.url
       : thumbnails.high
-      ? thumbnails.high.url
-      : thumbnails.medium
-      ? thumbnails.medium.url
-      : thumbnails.default
-      ? thumbnails.default.url
-      : "default"
+        ? thumbnails.high.url
+        : thumbnails.medium
+          ? thumbnails.medium.url
+          : thumbnails.default
+            ? thumbnails.default.url
+            : "default"
     : "default";
 
   return (
     <Card className="column is-one-quarter is-full-mobile video">
-      <CardMedia component="img" src={url} className="card-image" />
+      <Link onClick={() => props.onVideoSelect(props.video)}>
+        <CardMedia component="img" src={url} className="card-image" />
+      </Link>
       <CardContent>
         <Link
           underline="hover"

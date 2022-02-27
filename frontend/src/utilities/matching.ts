@@ -23,7 +23,11 @@ export function getKeywords(query: string): string[] {
 }
 
 export function sortVideos(videos: Video[], keywords: string[]): Video[] {
-  return videos.sort((a, b) => relevancy(b, keywords) - relevancy(a, keywords));
+  return videos.sort((a: Video, b: Video) => {
+    const d = relevancy(b, keywords) - relevancy(a, keywords);
+    if (d !== 0) return d;
+    return parseInt(b.statistics.likeCount) / parseInt(b.statistics.viewCount) - parseInt(a.statistics.likeCount) / parseInt(a.statistics.viewCount)
+  });
 }
 
 function watchedVideos(videos: Video[]): Video[] {

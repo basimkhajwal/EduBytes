@@ -20,7 +20,9 @@ const SearchControl = (props: SearchProps) => {
   const randomTopic = TOPICS[Math.floor(Math.random() * TOPICS.length)];
   const searchPlaceholderMessage = "How about " + randomTopic + "?";
 
-  const [searchInput, setSearchInput] = React.useState("");
+  const [searchInput, setSearchInput] = React.useState(
+    props.existingQuery ?? ""
+  );
 
   function doSearch() {
     props.onSearch(searchInput !== "" ? searchInput : randomTopic);

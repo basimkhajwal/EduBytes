@@ -31,7 +31,7 @@ const Thumbnail = (props: Props) => {
   } = props.video;
   const tagsCleanup = (tagsValid: string[]) => {
     return tagsValid.map((tag: string) => {
-      return tag.toLowerCase().split(" ").join("-");
+      return tag.toLowerCase();
     });
   };
   const tagsValid = tagsCleanup(tags ?? []);

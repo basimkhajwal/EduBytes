@@ -14,7 +14,9 @@ const Navbar = () => {
       <div className="navbar-brand">
         <a className="navbar-item">
           <div>
-            <strong>EduBytes</strong>
+            <a href="#">
+              <strong>EduBytes</strong>
+            </a>
           </div>
         </a>
 

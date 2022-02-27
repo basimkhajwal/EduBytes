@@ -36,11 +36,9 @@ const Navbar = (props: Props) => {
           </button>
         </div>
         <a className="navbar-item">
-          <a href="https://oxfordhack22.co.uk">
-            <div>
-              <strong>@ Oxford Hack 2022</strong>
-            </div>
-          </a>
+          <div>
+            <strong>@ Oxford Hack 2022</strong>
+          </div>
         </a>
       </div>
     </nav>

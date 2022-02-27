@@ -24,6 +24,12 @@ const SearchControl = (props: SearchProps) => {
     props.existingQuery ?? ""
   );
 
+  React.useEffect(() => {
+    if (props.existingQuery !== undefined) {
+      setSearchInput(props.existingQuery);
+    }
+  }, [props.existingQuery]);
+
   function doSearch() {
     props.onSearch(searchInput !== "" ? searchInput : randomTopic);
   }

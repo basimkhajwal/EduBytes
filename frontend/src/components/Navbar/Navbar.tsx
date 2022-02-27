@@ -17,43 +17,21 @@ const Navbar = (props: Props) => {
     >
       <div className="navbar-brand">
         <a className="navbar-item">
-          <div>
+          <div className="is-size-4">
             <a onClick={props.backHome}>
               <strong>EduBytes</strong>
             </a>
           </div>
         </a>
-
-        <a
-          role="button"
-          className="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
       </div>
       <div className="navbar-end" id="nav-links">
-        <div className="navbar-start">
-          <a className="navbar-item has-text-weight-semibold">
-            <span className="icon-text">
-              <span className="icon">
-                <FontAwesomeIcon icon={faSignIn} />
-              </span>
-              <span>Login</span>
-            </span>
+        <a className="navbar-item">
+          <a href="https://oxfordhack22.co.uk">
+            <div>
+              <strong>@ Oxford Hack 2022</strong>
+            </div>
           </a>
-          <a className="navbar-item has-text-weight-semibold">
-            <span className="icon-text">
-              <span className="icon">
-                <FontAwesomeIcon icon={faCoffee} />
-              </span>
-              <span>Sign Up</span>
-            </span>
-          </a>
-        </div>
+        </a>
       </div>
     </nav>
   );

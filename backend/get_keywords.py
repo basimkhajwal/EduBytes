@@ -2,11 +2,15 @@ import spacy
 import json
 import subprocess
 from string import punctuation
+import os
 
-json_file_path = "videos.json"
+from tqdm import tqdm
 
-with open(json_file_path, 'r', encoding='utf-8') as j:
+CWD = os.path.dirname(__file__)
+
+with open(os.path.join(CWD, "videos.json"), 'r', encoding='utf-8') as j:
     contents = json.load(j)
+
 
 def extract_keywords(nlp, sequence, pos_tag):
     """
@@ -33,14 +37,15 @@ def extract_keywords(nlp, sequence, pos_tag):
 
     return result
 
+
 nlp = spacy.load("en_core_web_lg")
 
-for c in contents:
+for c in tqdm(contents):
     keywords = extract_keywords(nlp, c["snippet"]["title"], ['PROPN', 'NOUN'])
     if "tags" in c["snippet"]:
         for tag in c["snippet"]["tags"]:
             keywords += extract_keywords(nlp, tag, ['PROPN'])
-    c["snippet"]["tags"] = list(set(w for w in keywords if len(w)>1))
+    c["snippet"]["tags"] = list(set(w for w in keywords if len(w) > 1))
 
-with open("../frontend/src/data/videos.json", "w") as write_file:
+with open(os.path.join(CWD, "../frontend/src/data/videos.json"), "w") as write_file:
     json.dump(contents, write_file)

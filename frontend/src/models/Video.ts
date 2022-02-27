@@ -5,10 +5,10 @@ export default interface Video {
     description: string;
     thumbnails?: {
       [key: string]:
-        | {
-            url?: string;
-          }
-        | undefined;
+      | {
+        url?: string;
+      }
+      | undefined;
     };
     channelTitle: string;
     tags?: string[] | undefined;
@@ -19,6 +19,6 @@ export default interface Video {
   statistics: {
     viewCount: string;
     likeCount: string;
-    commentCount: string;
+    commentCount?: string;
   };
 }
